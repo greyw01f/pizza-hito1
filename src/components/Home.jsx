@@ -6,9 +6,9 @@ const Home = () => {
   return (
     <div>
         <Header />
-        <div className="container mt-4"> {/* Bootstrap container for layout */}
-        <div className="row"> {/* Bootstrap row for cards */}
-          <div className="col-md-4"> {/* Bootstrap column for each card */}
+        <div className="container mt-4"> {}
+        <div className="row"> {}
+          <div className="col-md-4"> {}
             <CardPizza
               name="Napolitana"
               price={5950}
