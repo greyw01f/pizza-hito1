@@ -1,12 +1,12 @@
 /* src/components/CardPizza.css */
 
 .pizza-card {
-  border: 1px solid #ddd; /* Light gray border */
-  border-radius: 8px; /* Slightly rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  margin-bottom: 20px; /* Space between cards */
-  overflow: hidden; /* Ensures image corners match card */
-  transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  margin-bottom: 20px; 
+  overflow: hidden; 
+  transition: transform 0.2s ease-in-out; /
 }
 
 .pizza-card:hover {
@@ -15,9 +15,9 @@
 
 .pizza-card .card-img-top {
   width: 100%;
-  height: 200px; /* Fixed height for images */
-  object-fit: cover; /* Ensures image covers the area without distortion */
-  border-bottom: 1px solid #eee; /* Separator between image and body */
+  height: 200px; 
+  object-fit: cover; 
+  border-bottom: 1px solid #eee; 
 }
 
 .pizza-card .card-body {
@@ -25,7 +25,7 @@
 }
 
 .pizza-card .card-title {
-  font-size: 1.5rem; /* Larger title */
+  font-size: 1.5rem;
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
@@ -37,27 +37,27 @@
 }
 
 .pizza-card .card-text ul {
-  list-style: none; /* Remove default bullet points */
+  list-style: none; 
   padding: 0;
   margin-top: 5px;
   margin-bottom: 10px;
-  display: flex; /* Display ingredients in a row if space allows */
-  flex-wrap: wrap; /* Wrap ingredients if they don't fit */
-  gap: 5px; /* Space between ingredient items */
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 5px; 
 }
 
 .pizza-card .card-text ul li {
-  background-color: #f0f0f0; /* Light background for ingredients */
+  background-color: #f0f0f0; 
   border-radius: 4px;
   padding: 3px 8px;
   font-size: 0.85rem;
   color: #666;
 }
 
-.pizza-card .card-text:last-of-type { /* Targeting the price paragraph */
+.pizza-card .card-text:last-of-type { 
   font-size: 1.2rem;
   font-weight: bold;
-  color: #e44d26; /* A reddish-orange color, common for food pricing */
+  color: #e44d26; 
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -69,11 +69,11 @@
 }
 
 .pizza-card .btn-primary {
-  background-color: #007bff; /* Bootstrap blue */
+  background-color: #007bff;
   border-color: #007bff;
 }
 
 .pizza-card .btn-success {
-  background-color: #28a745; /* Bootstrap green */
+  background-color: #28a745; 
   border-color: #28a745;
 }
