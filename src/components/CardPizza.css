@@ -1,0 +1,79 @@
+/* src/components/CardPizza.css */
+
+.pizza-card {
+  border: 1px solid #ddd; /* Light gray border */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-bottom: 20px; /* Space between cards */
+  overflow: hidden; /* Ensures image corners match card */
+  transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+.pizza-card:hover {
+  transform: translateY(-5px); /* Lift card on hover */
+}
+
+.pizza-card .card-img-top {
+  width: 100%;
+  height: 200px; /* Fixed height for images */
+  object-fit: cover; /* Ensures image covers the area without distortion */
+  border-bottom: 1px solid #eee; /* Separator between image and body */
+}
+
+.pizza-card .card-body {
+  padding: 15px;
+}
+
+.pizza-card .card-title {
+  font-size: 1.5rem; /* Larger title */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.pizza-card .card-text strong {
+  font-weight: 600;
+  color: #555;
+}
+
+.pizza-card .card-text ul {
+  list-style: none; /* Remove default bullet points */
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: flex; /* Display ingredients in a row if space allows */
+  flex-wrap: wrap; /* Wrap ingredients if they don't fit */
+  gap: 5px; /* Space between ingredient items */
+}
+
+.pizza-card .card-text ul li {
+  background-color: #f0f0f0; /* Light background for ingredients */
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.pizza-card .card-text:last-of-type { /* Targeting the price paragraph */
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e44d26; /* A reddish-orange color, common for food pricing */
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.pizza-card .btn {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+}
+
+.pizza-card .btn-primary {
+  background-color: #007bff; /* Bootstrap blue */
+  border-color: #007bff;
+}
+
+.pizza-card .btn-success {
+  background-color: #28a745; /* Bootstrap green */
+  border-color: #28a745;
+}
