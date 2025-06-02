@@ -3,12 +3,12 @@ import React from 'react';
 const Header = () => {
   return (
     <div
-      className="text-center text-white py-5" // Bootstrap classes for centering text, white color, and padding
+      className="text-center text-white py-5" 
       style={{
-        backgroundImage: `url('/Header.jpg')`, // Reference from the public folder
+        backgroundImage: `url('/Header.jpg')`, 
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        minHeight: '200px', // Adjust height as needed
+        minHeight: '200px', 
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
