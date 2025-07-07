@@ -1,37 +1,13 @@
-// src/components/Cart.jsx
-import React, { useState } from 'react';
+import React, { useContext } from 'react'; // Importa useContext
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { pizzaCart as initialPizzaCart } from '../pizzas'; 
+import { CartContext } from '../context/CartContext'; // Importa el CartContext
 
 const Cart = () => {
-  
-  const [cart, setCart] = useState(initialPizzaCart);
-
-  
-  const calculateTotal = () => {
-    return cart.reduce((sum, item) => sum + item.price * item.count, 0);
-  };
-
- 
-  const increaseQuantity = (id) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id ? { ...item, count: item.count + 1 } : item 
-      )
-    );
-  };
-
-  
-  const decreaseQuantity = (id) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id ? { ...item, count: item.count - 1 } : item 
-      ).filter(item => item.count > 0) 
-    );
-  };
+  // Consume el contexto del carrito para obtener el carrito, las funciones y el total
+  const { cart, increaseQuantity, decreaseQuantity, total } = useContext(CartContext);
 
   const handlePay = () => {
-    
+    // Este botón no hace nada por ahora, según los requisitos
     alert('Función de pago no implementada aún.');
   };
 
@@ -48,7 +24,7 @@ const Cart = () => {
                 <p className="text-center">El carrito está vacío.</p>
               ) : (
                 <ul className="list-group list-group-flush">
-                  {cart.map((item) => ( 
+                  {cart.map((item) => (
                     <li key={item.id} className="list-group-item d-flex align-items-center justify-content-between">
                       <div className="d-flex align-items-center">
                         <img
@@ -59,11 +35,10 @@ const Cart = () => {
                         <span className="fw-bold me-3">{item.name}</span>
                       </div>
                       <div className="d-flex align-items-center">
-                       
                         <span className="me-3">${item.price.toLocaleString('es-CL', { minimumFractionDigits: 0 })}</span>
-                        <button className="btn btn-danger btn-sm me-2" onClick={() => decreaseQuantity(item.id)}>-</button> 
-                        <span className="fw-bold me-2">{item.count}</span> {/* Use 'count' here */}
-                        <button className="btn btn-success btn-sm" onClick={() => increaseQuantity(item.id)}>+</button> 
+                        <button className="btn btn-danger btn-sm me-2" onClick={() => decreaseQuantity(item.id)}>-</button>
+                        <span className="fw-bold me-2">{item.count}</span>
+                        <button className="btn btn-success btn-sm" onClick={() => increaseQuantity(item.id)}>+</button>
                       </div>
                     </li>
                   ))}
@@ -71,8 +46,9 @@ const Cart = () => {
               )}
             </div>
             <div className="card-footer text-end">
-              <h3>Total: ${calculateTotal().toLocaleString('es-CL', { minimumFractionDigits: 0 })}</h3> 
-              <button className="btn btn-dark mt-3" onClick={handlePay}>Pagar</button> 
+              {/* El total ahora viene directamente del contexto */}
+              <h3>Total: ${total.toLocaleString('es-CL', { minimumFractionDigits: 0 })}</h3>
+              <button className="btn btn-dark mt-3" onClick={handlePay}>Pagar</button>
             </div>
           </div>
         </div>
