@@ -1,8 +1,9 @@
-// src/components/Pizza.jsx
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Pizza = () => {
+  const { id } = useParams();
   const [pizza, setPizza] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +12,7 @@ const Pizza = () => {
     const fetchPizza = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/pizzas/p001');
+        const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -19,14 +20,14 @@ const Pizza = () => {
         setPizza(data);
       } catch (error) {
         console.error("Error fetching pizza details:", error);
-        setError("No se pudo cargar la información de la pizza. Asegúrate de que el backend esté funcionando.");
+        setError("No se pudo cargar la información de la pizza. Asegúrate de que el backend esté funcionando y el ID sea válido.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchPizza();
-  }, []);
+  }, [id]);
 
   if (loading) {
     return (
