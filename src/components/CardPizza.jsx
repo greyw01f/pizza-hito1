@@ -1,18 +1,15 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import './CardPizza.css';
-import { CartContext } from '../context/CartContext'; // Importa el CartContext
+import { CartContext } from '../context/CartContext';
 
-const CardPizza = ({ name, price, ingredients, img, id }) => { // Asegúrate de recibir el 'id'
+const CardPizza = ({ name, price, ingredients, img, id }) => {
   const formattedPrice = price.toLocaleString('es-CL', { style: 'currency', currency: 'CLP', minimumFractionDigits: 0 });
-
-  // Consume el contexto del carrito para obtener la función addToCart
   const { addToCart } = useContext(CartContext);
 
-  // Función para manejar el clic del botón "Añadir"
   const handleAddToCart = () => {
-    // Pasa toda la información necesaria de la pizza a la función addToCart
     addToCart({ id, name, price, img });
-    alert(`${name} añadida al carrito!`); // Mensaje de confirmación
+    alert(`${name} añadida al carrito!`);
   };
 
   return (
@@ -32,8 +29,7 @@ const CardPizza = ({ name, price, ingredients, img, id }) => { // Asegúrate de 
           <strong>Precio: </strong>{formattedPrice}
         </p>
         <div className="d-flex justify-content-between">
-          <button className="btn btn-primary">Ver Más</button>
-          {/* Asigna la función handleAddToCart al botón "Añadir" */}
+          <Link to={`/pizza/${id}`} className="btn btn-primary">Ver Más</Link>
           <button className="btn btn-success" onClick={handleAddToCart}>Añadir</button>
         </div>
       </div>
