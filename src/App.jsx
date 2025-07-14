@@ -1,38 +1,54 @@
-// src/App.jsx
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'; 
-
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
 import Pizza from './pages/Pizza';
-import Profile from './pages/Profile'; 
+import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-import { CartProvider } from './context/CartContext'; // Importa el contexto del carrito
+import { CartProvider } from './context/CartContext';
+import { UserContext, UserProvider } from './context/UserContext';
+import { useContext } from 'react';
+
+const ProtectedRoute = ({ children, requireAuth, redirectIfAuthenticated }) => {
+  const { token } = useContext(UserContext);
+
+  if (requireAuth && !token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (redirectIfAuthenticated && token) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
+
 
 function App() {
   return (
-    
     <BrowserRouter>
-      <CartProvider> {/* Proveedor del contexto del carrito [cite: 16] */}
-        <Navbar /> {/* Navbar siempre visible */}
-        <Routes> {/* Define las rutas de la aplicación [cite: 17] */}
-          <Route path="/" element={<Home />} /> {/* Ruta para Home [cite: 18] */}
-          <Route path="/register" element={<Register />} /> {/* Ruta para Register [cite: 21] */}
-          <Route path="/login" element={<Login />} /> {/* Ruta para Login [cite: 22] */}
-          <Route path="/cart" element={<Cart />} /> {/* Ruta para Cart [cite: 23] */}
-          <Route path="/pizza/p001" element={<Pizza />} /> {/* Ruta para Pizza (ID fijo por ahora) [cite: 24] */}
-          <Route path="/profile" element={<Profile />} /> {/* Ruta para Profile [cite: 25] */}
-          <Route path="*" element={<NotFound />} /> {/* Ruta para NotFound (cualquier otra ruta) [cite: 25, 26] */}
-        </Routes>
-        <Footer /> {/* Footer siempre visible */}
-      </CartProvider>
+      <UserProvider>
+        <CartProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<ProtectedRoute redirectIfAuthenticated={true}><Register /></ProtectedRoute>} />
+            <Route path="/login" element={<ProtectedRoute redirectIfAuthenticated={true}><Login /></ProtectedRoute>} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/pizza/:id" element={<Pizza />} />
+            <Route path="/profile" element={<ProtectedRoute requireAuth={true}><Profile /></ProtectedRoute>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </CartProvider>
+      </UserProvider>
     </BrowserRouter>
   );
 }
