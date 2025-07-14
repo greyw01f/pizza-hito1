@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'; // Importa useContext
+import React, { useContext } from 'react'; // Removed useState
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { CartContext } from '../context/CartContext'; // Importa el CartContext
+import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext';
 
 const Cart = () => {
-  // Consume el contexto del carrito para obtener el carrito, las funciones y el total
   const { cart, increaseQuantity, decreaseQuantity, total } = useContext(CartContext);
+  const { token } = useContext(UserContext);
 
   const handlePay = () => {
-    // Este botón no hace nada por ahora, según los requisitos
     alert('Función de pago no implementada aún.');
   };
 
@@ -46,9 +46,8 @@ const Cart = () => {
               )}
             </div>
             <div className="card-footer text-end">
-              {/* El total ahora viene directamente del contexto */}
               <h3>Total: ${total.toLocaleString('es-CL', { minimumFractionDigits: 0 })}</h3>
-              <button className="btn btn-dark mt-3" onClick={handlePay}>Pagar</button>
+              <button className="btn btn-dark mt-3" onClick={handlePay} disabled={!token}>Pagar</button>
             </div>
           </div>
         </div>
