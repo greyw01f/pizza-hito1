@@ -1,34 +1,31 @@
-// src/components/Login.jsx
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { UserContext } from '../context/UserContext';
 
-const Login = () => { 
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { login } = useContext(UserContext);
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if (!email || !password) {
       alert('Todos los campos son obligatorios.');
       return;
     }
 
-    
-    if (password.length < 6) {
-      alert('El password debe tener al menos 6 caracteres!'); 
-      return;
-    }
+    const result = await login(email, password);
 
-   
-    if (email === 'prueba@prueba.com' && password === 'password123') {
-      alert('Authentication successful!'); // Match example message 
-     
+    if (result.success) {
+      alert('Inicio de sesión exitoso!');
+      navigate('/');
     } else {
-      alert('Email o contraseña incorrectos.'); 
+      alert(result.message || 'Email o contraseña incorrectos.');
     }
 
-    
     setEmail('');
     setPassword('');
   };
@@ -61,11 +58,10 @@ const Login = () => {
                     type="password"
                     className="form-control"
                     id="passwordInput"
-                    placeholder="Enter your password" 
+                    placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    minLength="6"
                   />
                 </div>
                 <div className="d-grid">
@@ -80,4 +76,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;
