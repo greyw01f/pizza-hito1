@@ -1,12 +1,18 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext';
 
 const Navbar = () => {
-  const token = false;
-
   const { total } = useContext(CartContext);
+  const { token, logout } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <div>
@@ -35,7 +41,7 @@ const Navbar = () => {
                     <Link className="nav-link" to="/profile">Profile</Link>
                   </li>
                   <li className="nav-item">
-                    <button className="nav-link btn btn-link text-white-50" onClick={() => alert('Función de cerrar sesión no implementada aún.')}>Logout</button>
+                    <button className="nav-link btn btn-link text-white-50" onClick={handleLogout}>Logout</button>
                   </li>
                 </>
               ) : (
@@ -64,3 +70,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
