@@ -1,36 +1,42 @@
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { UserContext } from '../context/UserContext';
 
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-
-const Register = () => { 
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
+  const { register } = useContext(UserContext);
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    
     if (!email || !password || !confirmPassword) {
       alert('Todos los campos son obligatorios.');
       return;
     }
 
-   
     if (password.length < 6) {
       alert('El password debe tener al menos 6 caracteres.');
       return;
     }
 
-   
     if (password !== confirmPassword) {
       alert('El password y la confirmación del password deben ser iguales.');
       return;
     }
 
-   
-    alert('Registro exitoso!'); 
-   
+    const result = await register(email, password);
+
+    if (result.success) {
+      alert('Registro exitoso! Sesión iniciada automáticamente.');
+      navigate('/');
+    } else {
+      alert(result.message || 'Error en el registro.');
+    }
+
     setEmail('');
     setPassword('');
     setConfirmPassword('');
@@ -54,7 +60,7 @@ const Register = () => {
                     id="emailInput"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required 
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -65,8 +71,8 @@ const Register = () => {
                     id="passwordInput"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required 
-                    minLength="6" 
+                    required
+                    minLength="6"
                   />
                 </div>
                 <div className="mb-3">
@@ -77,8 +83,8 @@ const Register = () => {
                     id="confirmPasswordInput"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    required 
-                    minLength="6" 
+                    required
+                    minLength="6"
                   />
                 </div>
                 <div className="d-grid">
@@ -93,4 +99,4 @@ const Register = () => {
   );
 };
 
-export default Register; 
+export default Register;
