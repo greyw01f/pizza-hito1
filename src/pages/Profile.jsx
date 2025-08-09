@@ -1,16 +1,21 @@
-// src/pages/Profile.jsx
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// Se usa Link para el botón de cerrar sesión que eventualmente podría redirigir
-import { Link } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
 const Profile = () => {
-  // El email y el botón son estáticos por ahora, según el requerimiento. [cite: 28, 29]
-  const userEmail = "usuario@ejemplo.com";
+  const { email, logout, getProfile, token } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token && !email) {
+      getProfile();
+    }
+  }, [token, email, getProfile]);
 
   const handleLogout = () => {
-    alert("Función de cerrar sesión no implementada aún.");
-    // En futuros hitos se implementará la lógica de autenticación real. [cite: 29]
+    logout();
+    navigate('/login');
   };
 
   return (
@@ -22,7 +27,11 @@ const Profile = () => {
               <h2>Perfil de Usuario</h2>
             </div>
             <div className="card-body text-center">
-              <p className="lead">Email: <strong>{userEmail}</strong></p>
+              {email ? (
+                <p className="lead">Email: <strong>{email}</strong></p>
+              ) : (
+                <p className="lead">Cargando email...</p>
+              )}
               <button className="btn btn-danger mt-3" onClick={handleLogout}>Cerrar Sesión</button>
             </div>
           </div>
